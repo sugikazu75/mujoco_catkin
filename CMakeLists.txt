@@ -20,6 +20,14 @@ catkin_package(
   CFG_EXTRAS mujoco-extras.cmake
   )
 
+file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME})
+add_custom_command(TARGET mujoco
+  POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CATKIN_DEVEL_PREFIX}/bin
+  ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}
+  COMMENT "Copying mujoco binaries to catkin package lib directory for rosrun"
+  )
+
 install(DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/mujoco
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   )
