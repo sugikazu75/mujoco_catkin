@@ -1,5 +1,19 @@
 cmake_minimum_required(VERSION 3.5)
-set(MUJOCO_VERSION 3.3.5)
+
+find_program(LSB_RELEASE_EXEC lsb_release)
+execute_process(COMMAND ${LSB_RELEASE_EXEC} -sc
+  OUTPUT_VARIABLE OS_CODENAME
+  OUTPUT_STRIP_TRAILING_WHITESPACE)
+message(STATUS "Detected OS Codename: ${OS_CODENAME}")
+
+if(OS_CODENAME STREQUAL "bionic" OR OS_CODENAME STREQUAL "focal")
+  set(MUJOCO_VERSION 2.3.7)
+  message(STATUS "Old Ubuntu detected. Using MuJoCo ${MUJOCO_VERSION}")
+else()
+  set(MUJOCO_VERSION 3.3.5)
+  message(STATUS "Newer Ubuntu detected. Using MuJoCo ${MUJOCO_VERSION}")
+endif()
+
 project(mujoco VERSION ${MUJOCO_VERSION})
 
 find_package(catkin REQUIRED)
