@@ -6,7 +6,7 @@ execute_process(COMMAND ${LSB_RELEASE_EXEC} -sc
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 message(STATUS "Detected OS Codename: ${OS_CODENAME}")
 
-if(OS_CODENAME STREQUAL "bionic" OR OS_CODENAME STREQUAL "focal")
+if(OS_CODENAME STREQUAL "bionic")
   set(MUJOCO_VERSION 2.3.7)
   message(STATUS "Old Ubuntu detected. Using MuJoCo ${MUJOCO_VERSION}")
 else()
